@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student List</title>
+</head>
+<body>
+<h1>Student List</h1>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Project Topic</th>
+<th>Languages Used</th>
+<th>Duration</th>
+</tr>
+</thead>
+<tbody>
+{% for student in students %}
+<tr>
+<td>{{ student.name }}</td>
+<td>{{ student.project.topic }}</td>
+<td>{{ student.project.languages_used }}</td>
+<td>{{ student.project.duration }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</body>
+</html>

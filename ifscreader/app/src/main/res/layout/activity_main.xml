@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whitetoblack">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/whitetoblack"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15sp"
+            android:text="@string/title"
+            android:textColor="@color/blacktowhite"
+            android:textSize="23sp" />
+
+        <EditText
+            android:id="@+id/et_get_ifsc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="100sp"
+            android:layout_marginTop="15sp"
+            android:layout_marginRight="100sp"
+            android:background="#FFFFFF"
+            android:focusable="auto"
+            android:focusableInTouchMode="true"
+            android:forceDarkAllowed="false"
+            android:hint="@string/hint"
+            android:inputType="textCapCharacters"
+            android:maxLength="11"
+            android:padding="13sp"
+            android:textAlignment="center"
+            tools:targetApi="q" />
+
+        <Button
+            android:id="@+id/btn_get_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_get_ifsc"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15sp"
+            android:layout_marginBottom="15sp"
+            android:elevation="10sp"
+            android:hapticFeedbackEnabled="true"
+            android:padding="10sp"
+            android:text="@string/btn_text"
+            android:textAllCaps="false" />
+
+        <TextView
+            android:id="@+id/tv_footer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_get_result"
+            android:layout_marginStart="15sp"
+            android:text="@string/footer"
+            android:textColor="@color/blacktowhite"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_footer"
+            android:layout_marginStart="15sp"
+            android:layout_marginTop="10sp"
+            android:layout_marginEnd="15sp"
+            android:layout_marginBottom="10sp"
+            android:lineHeight="28sp"
+            android:textColor="@color/blacktowhite"
+            android:textIsSelectable="true"
+            android:textSize="16sp"
+            android:visibility="gone"
+            tools:targetApi="p" />
+
+    </RelativeLayout>
+</ScrollView>

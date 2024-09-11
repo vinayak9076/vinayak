@@ -1,0 +1,86 @@
+Experiment-11
+Develop example Django app that performs CSV and PDF generation for any models created in previous laboratory component. 
+To create a Django app that performs CSV and PDF generation for any models
+created, you can follow these steps. We'll assume you have a model named Student
+in your Django app as an example.
+Step 1: Install Required Libraries: First, you need to install the necessary libraries
+for CSV and PDF generation. You can do this using pip:
+
+pip install django-csv django-pdf
+Step 2: create Model for student or existing model of any previous programs 
+#models.py
+from django.db import models
+
+class Student(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    enrolled_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+Step 3: Create CSV Generation Function and PDF Generation Function
+# views.py
+from django.http import HttpResponse
+import csv
+from .models import Student
+from reportlab.pdfgen import canvas
+import io
+#CSV Generation Function
+def export_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="students.csv"'
+    
+    writer = csv.writer(response)
+    writer.writerow(['Name', 'Email', 'Enrolled At'])
+    
+    students = Student.objects.all() 
+    for student in students:
+        writer.writerow([student.name, student.email, student.enrolled_at])
+    
+    return response
+# PDF Generation Function
+def export_pdf(request):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="students.pdf"'
+    
+    buffer = io.BytesIO()
+    pdf = canvas.Canvas(buffer)
+    pdf.setTitle('Student List')
+    
+    students = Student.objects.all()
+    y = 800
+    for student in students:
+        pdf.drawString(100, y, f"Name: {student.name}")
+        pdf.drawString(100, y - 20, f"Email: {student.email}")
+        pdf.drawString(100, y - 40, f"Enrolled At: {student.enrolled_at}")
+        y -= 60
+    
+    pdf.showPage()
+    pdf.save()
+    
+    pdf_bytes = buffer.getvalue()
+    buffer.close()
+    response.write(pdf_bytes)
+    
+    return response
+Step 4: Add URL Routes: Define URL routes in your app's urls.py to map to the
+CSV and PDF generation views:
+# urls.py
+from django.urls import path
+from .views import export_csv, export_pdf
+
+urlpatterns = [
+    path('export/csv/', export_csv, name='export_csv'),
+    path('export/pdf/', export_pdf, name='export_pdf'),
+]
+Step-5: Run migrations and start the server: Apply migrations to create database
+tables for the models and start the Django development server:
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+
+Step 6: Now, you can access the app in your browser at
+http://127.0.0.1:8000
+
+Output:
+

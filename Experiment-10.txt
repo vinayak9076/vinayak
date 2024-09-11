@@ -1,0 +1,126 @@
+Experiment-10
+
+For students enrolment developed in Module 2, create a generic class view which displays list of students and detail view that displays student details for any selected student in the list. 
+Step-1: First, let's create models for Student and Course if you haven't already:
+Model.py
+from django.db import models
+
+class Student(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField(unique=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
+class Course(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    students = models.ManyToManyField(Student, related_name='courses', blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+
+Step-2: Next, create views for the list and detail views and import necessary packages:
+View.py
+from django.views.generic import ListView, DetailView
+from .models import Student, Course
+
+class StudentListView(ListView):
+    model = Student
+    template_name = 'courses/student_list.html'
+    context_object_name = 'students'
+
+class StudentDetailView(DetailView):
+    model = Student
+    template_name = 'courses/student_detail.html'
+    context_object_name = 'student'
+
+class CourseDetailView(DetailView):
+    model = Course
+    template_name = 'courses/course_detail.html'
+    context_object_name = 'course'
+Step-3: Now, let's create the templates:
+Course/student_list.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student List</title>
+</head>
+<body>
+    <h1>Student List</h1>
+    <ul>
+        {% for student in students %}
+            <li><a href="{% url 'student-detail' student.pk %}">{{ student.first_name }} {{ student.last_name }}</a></li>
+        {% endfor %}
+    </ul>
+</body></html>
+
+
+Course/Student_details.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Detail</title>
+</head>
+<body>
+    <h1>{{ student.first_name }} {{ student.last_name }}</h1>
+    <h2>Enrolled Courses</h2>
+    <ul>
+        {% for course in student.courses.all %}
+            <li>{{ course.name }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'student-list' %}">Back to Student List</a>
+</body>
+</html>
+
+Course/course_detail.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course Detail</title>
+</head>
+<body>
+    <h1>{{ course.name }}</h1>
+    <h2>Enrolled Students</h2>
+    <ul>
+        {% for student in course.students.all %}
+            <li>{{ student.first_name }} {{ student.last_name }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'student-list' %}">Back to Student List</a>
+</body>
+</html>
+
+
+Step-4: add the URL patterns:
+from django.urls import path
+from .views import StudentListView, StudentDetailView, CourseDetailView
+
+urlpatterns = [
+    path('', StudentListView.as_view(), name='student-list'),
+    path('student/<int:pk>/', StudentDetailView.as_view(), name='student-detail'),
+    path('course/<int:pk>/', CourseDetailView.as_view(), name='course-detail'),
+]
+
+Step-5: add Index.html For showing the Students In Main Page:
+Step-6: Run migrations and start the server: Apply migrations to create database
+tables for the models and start the Django development server:
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+
+Step 7: Now, you can access the app in your browser at
+http://127.0.0.1:8000/registration/courses/ to view the course list, click on a course
+to see the list of students registered for that course
+(http://127.0.0.1:8000/registration/student/<course_id>/), and click on a student's
+name to view their details
+(http://127.0.0.1:8000/registration/student/<student_id>/).
+
+
+Output:
+
+

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.s7k.doctroid">
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
+    <dist:module dist:instant="true" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
+    <application
+        android:name="app.App"
+        android:allowBackup="true"
+        android:icon="@drawable/icon_round"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/icon_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name="view.activity.MedicalAnalysisActivity"></activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name="view.category.EmergencyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="view.category.MedicineActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="view.category.ResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="view.category.AppointmentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="view.category.MedicalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="view.category.HospitalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="view.activity.AddMedicineActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name="view.activity.SignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="view.activity.SignInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="view.base.SliderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="view.activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="view.base.SplashActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

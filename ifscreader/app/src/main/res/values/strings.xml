@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">IFSC Code Details</string>
+    <string name="title">IFSC-INFOHUB</string>
+    <string name="hint">AAAA0000000</string>
+    <string name="btn_text">Get IFSC Details</string>
+    <string name="footer">Details</string>
+    <string name="failed">Fail to get data...</string>
+    <string name="loading">Loading...</string>
+</resources>
